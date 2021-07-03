@@ -1,5 +1,5 @@
 # ApiLaravel
-ApiRest simples utilizando laravel
+ApiRest utilizando Laravel, Bootstrap e Ajax
 
 Criar base de dados:
 CREATE DATABASE `apilaravel` DEFAULT CHARACTER SET = `utf8`;
