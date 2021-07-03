@@ -15,7 +15,7 @@
     <main>
         <div class="container">
 
-            <h1 style="padding-top: 20px;">Crud com Laravel</h1>
+            <h1 style="padding-top: 20px;">Crud em Laravel</h1>
             <p class="lead">Cadastro de Produtos utilizando Laravel - Teste Myra</p>
             <br>
 
@@ -53,6 +53,7 @@
                 </div>
                 <div class="modal-body">
                     <form class="row g-3" id="formuladio">
+
                         <input type="hidden" id='_id' name="id">
                         <div class="col-md-6">
                             <label for="nome" class="form-label">Nome</label>
@@ -87,12 +88,12 @@
 
     <script>
         var url = 'api/myra';
-
         listarDados();
 
         function abrirModal(id = null) {
             $('#modal').modal('show');
             $("#formuladio")[0].reset();
+            $('#descricao').html('');
             var titulo = id ? 'Editar' : 'Adicionar';
             var _id = id ? id : '';
             $('#tituloModal').html(titulo);
