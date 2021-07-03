@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateApiModelsTable extends Migration
+class CreateApilaravelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateApiModelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('api_models', function (Blueprint $table) {
+        Schema::create('apilaravels', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
+            $table->string('nome', 50);
             $table->double('valor', 10.2);
-            $table->string('descricao');
+            $table->string('descricao', 100);
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateApiModelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('api_models');
+        Schema::dropIfExists('apilaravels');
     }
 }
