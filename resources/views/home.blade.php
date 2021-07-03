@@ -52,12 +52,29 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ...
+                    <form class="row g-3" id="formuladio">
+                        <input type="hidden" id='_id' name="id">
+                        <div class="col-md-6">
+                            <label for="nome" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="nome" name="nome">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="valor" class="form-label">Valor</label>
+                            <input type="number" class="form-control" id="valor" name="valor">
+                        </div>
+                        <div class="mb-3">
+                            <label for="descricao" class="form-label">Descricão</label>
+                            <textarea class="form-control" id="descricao" name="descricao" rows="3"></textarea>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
+                            <button type="button" class="btn btn-success" onclick="inserirEditar()">Salvar</button>
+                        </div>
+
+                    </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-success">Salvar</button>
-                </div>
+
             </div>
         </div>
     </div>
@@ -75,19 +92,49 @@
 
         function abrirModal(id = null) {
             $('#modal').modal('show');
+            $("#formuladio")[0].reset();
             var titulo = id ? 'Editar' : 'Adicionar';
+            var _id = id ? id : '';
             $('#tituloModal').html(titulo);
+            $('#_id').val(_id);
+
+            if(id){
+                $('#nome').val($("#linha_" + id + " td:nth-child(2)").html());
+                $('#valor').val($("#linha_" + id + " td:nth-child(3)").html());
+                $('#descricao').html($("#linha_" + id + " td:nth-child(4)").html());
+            }
         }
 
-        function inserirEditar(id = null) {
-
+        function inserirEditar() {
+            var id = $('#_id').val();
+            var type = id ? 'PUT' : 'POST';
+            var _url = id ? url + '/' + id : url;
+            console.log(_url)
+            $.ajax({
+                "url": _url,
+                "type": type,
+                'data': $("#formuladio").serialize(),
+                'headers': {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    if(!id){
+                        $('table tbody').append(tableTd(data));
+                    }else{
+                        listarDados();
+                    }
+                    $('#modal').modal('hide');
+                }
+            });
         }
 
         function deletar(id) {
             $.ajax({
                 "url": url + '/' + id,
                 "type": 'DELETE',
-                'headers': {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                'headers': {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 success: function(data) {
                     $("#linha_" + id).remove();
                 }
