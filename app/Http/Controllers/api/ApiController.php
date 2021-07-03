@@ -28,11 +28,12 @@ class ApiController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        Apilaravel::where('id', $id)->update($request->all());
+        return response($request->all());
     }
 
     public function destroy($id)
     {
-        //
+        return (Apilaravel::destroy($id)) ? response('Deletado com sucesso!') : response('Erro ao deletar');
     }
 }
