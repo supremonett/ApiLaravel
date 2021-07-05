@@ -1,5 +1,7 @@
 # ApiLaravel
-ApiRest utilizando Laravel, Bootstrap e Ajax
+
+API REST em PHP, consiste em criar, ler, atualizar e excluir registros em um banco de dados mysql.<br>
+Também um frontend com Jquery e Bootstrap, que utilize essa API.<br>
 
 Criar base de dados:
 CREATE DATABASE `apilaravel` DEFAULT CHARACTER SET = `utf8`;
